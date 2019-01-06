@@ -12,7 +12,10 @@ public class Solution {
 	private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-    	List<String> names = new ArrayList<>();
+    	//Map<String,String> names = new HashMap<>();
+    	List<String> namesList = new ArrayList<>();
+    	String myRegExString = "[a-zA-Z]+.@gmail.com$";
+    	Pattern p = Pattern.compile(myRegExString);
         int N = scanner.nextInt();
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
@@ -20,15 +23,34 @@ public class Solution {
             String[] firstNameEmailID = scanner.nextLine().split(" ");
 
             String firstName = firstNameEmailID[0];
-            names.add(firstName);
+  
 
             String emailID = firstNameEmailID[1];
-            
+            //names.put(firstName, emailID);
+            namesList.add(firstName+"-"+emailID);
             
         }
-        Collections.sort(names);
+        
         scanner.close();
-        System.out.println(names);
+        /*names.forEach((key,value) -> {
+        	Matcher m = p.matcher(value);
+        	if( m.find() ) {
+    		    // Print the match
+        		System.out.println("Key : " + key + " Value : " + value);
+    		}
+            
+
+        });*/
+        Collections.sort(namesList);
+        namesList.forEach((names)->{
+        	String[] nameArr = names.split("-");
+        	Matcher m = p.matcher(nameArr[1]);
+        	if( m.find() ) {
+    		    // Print the match
+        		System.out.println(nameArr[0]);
+    		}
+        });
+        
     }
     /*
 
